@@ -20,14 +20,17 @@ class Main extends View {
 				<case ${Failed(e)}>
 					${e.message}
 				<case ${Done(list)}>
-					<select onchange=${e -> data.version = cast e.src.value}>
-						<for ${v in HaxeVersion.list()}>
-							<option value=${v} selected=${data.version == v}>${v}</option>
+					<div>
+						<Dropdown
+							value=${data.version}
+							options=${HaxeVersion.list()}
+						/>
+					</div>
+					<div>
+						<for ${target in Target.list()}>
+							<div style=${{margin: '4px'}} class="button is-primary is-small ${active.get(target) ? 'is-active' : 'is-outlined'}" onclick=${active.set(target, !active.get(target))}>${target}</div>
 						</for>
-					</select>
-					<for ${target in Target.list()}>
-						<button onclick=${active.set(target, !active.get(target))}>${target}</button>
-					</for>
+					</div>
 					<Chart config=${{
 						type: 'line',
 						data: {
@@ -41,21 +44,73 @@ class Main extends View {
 								datasets: [for(target in dataset.series.keys()) {
 									label: target,
 									backgroundColor: 'rgba(0, 0, 0, 0)',
-									borderColor: 'rgba(${Std.random(255)}, ${Std.random(255)}, ${Std.random(255)}, 1)',
+									borderColor: (cast target:Target).color(),
 									data: dataset.series.get(target),
 								}],
 							}
 						},
+						options: {
+							animation: false,
+						}
 					}}/>
 					
 			
 			</switch>
 		</div>
 	';
+	
+	function dropdown(attrs:{}) '
+		<div class="dropdown">
+			<div class="dropdown-trigger">
+				<button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+				<span>${data.version}</span>
+				<span class="icon is-small">
+					<i class="fas fa-angle-down" aria-hidden="true"></i>
+				</span>
+				</button>
+			</div>
+			<div class="dropdown-menu" id="dropdown-menu" role="menu">
+				<div class="dropdown-content">
+					<for ${v in HaxeVersion.list()}>
+						<a href="#" class="dropdown-item ${data.version == v ? 'is-active' : ''}" onclick=${data.version = v}>${v}</a>
+					</for>
+				</div>
+			</div>
+		</div>
+	';
+	
 	// @formatter:on
 	static function main() {
 		var data = new BenchmarkData({name: 'formatter_noio', version: Haxe4});
-		data.observables.data.getNext(v -> v.toOption()).handle(list -> trace([for (v in list) merge(v, targets = [for (t in v.targets) t])]));
 		Renderer.mountInto(document.getElementById('app'), hxx('<Main data=${data}/>'));
 	}
+}
+
+class Dropdown extends View {
+	@:controlled var value:HaxeVersion;
+	@:attr var options:List<HaxeVersion>;
+	@:state var open:Bool = false;
+
+	// @formatter:off
+	function render() '
+		<div class="dropdown ${open ? 'is-active' : ''}">
+			<div class="dropdown-trigger">
+				<button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu" onclick=${open = true}>
+				<span>${value}</span>
+				<span class="icon is-small">
+					<i class="fas fa-angle-down" aria-hidden="true"></i>
+				</span>
+				</button>
+			</div>
+			<div class="dropdown-menu" id="dropdown-menu" role="menu">
+				<div class="dropdown-content">
+					<for ${v in options}>
+						<a class="dropdown-item ${value == v ? 'is-active' : ''}" onclick=${() -> {open = false; value = v;} }>${v}</a>
+					</for>
+				</div>
+			</div>
+		</div>
+	';
+	
+	// @formatter:on
 }

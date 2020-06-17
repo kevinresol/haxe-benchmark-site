@@ -2373,24 +2373,6 @@ var Main = function(__coco_data_) {
 Main.__name__ = true;
 Main.main = function() {
 	var data = new data_BenchmarkData({ name : "formatter_noio", version : "haxe4"});
-	tink_state_Observable.getNext(data.observables.data,null,function(v) {
-		return tink_state_PromisedTools.toOption(v);
-	}).handle(function(list) {
-		var __tmp = [];
-		var _g = new tink_pure_NodeIterator(list);
-		while(_g.list.length > 0) {
-			var v = _g.next();
-			var __o0 = v;
-			var __tmp1 = [];
-			var _g1 = new tink_pure_NodeIterator(v.targets);
-			while(_g1.list.length > 0) {
-				var t = _g1.next();
-				__tmp1.push(t);
-			}
-			__tmp.push({ targets : __tmp1, haxeVersion : __o0.haxeVersion, date : __o0.date});
-		}
-		console.log("src/Main.hx:58:",__tmp);
-	});
 	var tmp = window.document.getElementById("app");
 	var this1 = { f : function() {
 		return data;
@@ -2414,35 +2396,38 @@ Main.prototype = $extend(coconut_vdom_View.prototype,{
 		case 1:
 			var list = _g.result;
 			var hxxMeta1 = { };
+			var this1 = { f : function() {
+				return tink_state_Observable.get_value(_gthis.__coco_data);
+			}};
+			var target = tink_state_Observable.auto(this1);
+			var this1 = { f : function() {
+				return tink_state_State.get_value(tink_state_Observable.get_value(target).__coco_version);
+			}};
+			var children = tink_state_State.compound(tink_state_Observable.auto(this1),function(value) {
+				tink_state_Observable.get_value(target).set_version(value);
+			});
+			var this1 = { f : function() {
+				return tink_pure_List.fromArray(["haxe3","haxe4","haxe-nightly"]);
+			}};
+			var children1 = [Dropdown.fromHxx({ },{ value : children, options : tink_state_Observable.auto(this1)})];
+			__r.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta1.ref,hxxMeta1.key,{ },children1));
+			var hxxMeta1 = { };
 			var __r1 = [];
-			var v = "haxe3";
-			var hxxMeta2 = { };
-			var attr = { value : v, selected : tink_state_State.get_value(tink_state_Observable.get_value(this.__coco_data).__coco_version) == v};
-			__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.OPTION,hxxMeta2.ref,hxxMeta2.key,attr,[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,v,null)]));
-			var v = "haxe4";
-			var hxxMeta2 = { };
-			var attr = { value : v, selected : tink_state_State.get_value(tink_state_Observable.get_value(this.__coco_data).__coco_version) == v};
-			__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.OPTION,hxxMeta2.ref,hxxMeta2.key,attr,[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,v,null)]));
-			var v = "haxe-nightly";
-			var hxxMeta2 = { };
-			var attr = { value : v, selected : tink_state_State.get_value(tink_state_Observable.get_value(this.__coco_data).__coco_version) == v};
-			__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.OPTION,hxxMeta2.ref,hxxMeta2.key,attr,[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,v,null)]));
-			__r.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.SELECT,hxxMeta1.ref,hxxMeta1.key,{ onchange : function(e) {
-				tink_state_Observable.get_value(_gthis.__coco_data).set_version(e.currentTarget.value);
-			}},__r1));
 			var _g1 = 0;
 			var _g2 = ["C++","C++ (GC Gen)","Cppia","NodeJS","NodeJS (ES6)","Java","JVM","HashLink","HashLink/C","HashLink Immix","HashLink/C Immix","C#","PHP","Python","Eval","Lua","Luajit","Neko"];
 			while(_g1 < _g2.length) {
-				var target = [_g2[_g1]];
+				var target1 = [_g2[_g1]];
 				++_g1;
-				var hxxMeta1 = { };
-				var children = [coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,target[0],null)];
-				__r.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.BUTTON,hxxMeta1.ref,hxxMeta1.key,{ onclick : (function(target) {
+				var hxxMeta2 = { };
+				var attr = tink_domspec_ClassName.ofString("button is-primary is-small " + (tink_state_Observable.get_value(tink_state_State.get_value(this.__coco_active).observe(target1[0])) ? "is-active" : "is-outlined"));
+				var attr1 = { style : { margin : "4px"}, className : attr, onclick : (function(target) {
 					return function(event) {
 						tink_state_State.get_value(_gthis.__coco_active).set(target[0],!tink_state_Observable.get_value(tink_state_State.get_value(_gthis.__coco_active).observe(target[0])));
 					};
-				})(target)},children));
+				})(target1)};
+				__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta2.ref,hxxMeta2.key,attr1,[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,target1[0],null)]));
 			}
+			__r.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta1.ref,hxxMeta1.key,{ },__r1));
 			var this1 = { f : function() {
 				var series = [];
 				var target = tink_state_Observable.get_value(tink_state_State.get_value(_gthis.__coco_active).observableKeys);
@@ -2466,9 +2451,9 @@ Main.prototype = $extend(coconut_vdom_View.prototype,{
 				var target = haxe_ds_StringMap.keysIterator(dataset.series.h);
 				while(target.hasNext()) {
 					var target1 = target.next();
-					__tmp.push({ label : target1, backgroundColor : "rgba(0, 0, 0, 0)", borderColor : "rgba(" + Std.random(255) + ", " + Std.random(255) + ", " + Std.random(255) + ", 1)", data : dataset.series.h[target1]});
+					__tmp.push({ label : target1, backgroundColor : "rgba(0, 0, 0, 0)", borderColor : data_Target.color(target1), data : dataset.series.h[target1]});
 				}
-				return { type : "line", data : { labels : this1, datasets : __tmp}};
+				return { type : "line", data : { labels : this1, datasets : __tmp}, options : { animation : false}};
 			}};
 			__r.push(ui_Chart.fromHxx({ },{ config : tink_state_Observable.auto(this1)}));
 			break;
@@ -2478,6 +2463,52 @@ Main.prototype = $extend(coconut_vdom_View.prototype,{
 			break;
 		}
 		return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta.ref,hxxMeta.key,{ style : { width : "100vw", height : "100vh"}},__r);
+	}
+	,dropdown: function(attrs) {
+		var _gthis = this;
+		var hxxMeta = { };
+		var attr = { className : tink_domspec_ClassName.ofString("dropdown")};
+		var __r = [];
+		var hxxMeta1 = { };
+		var attr1 = { className : tink_domspec_ClassName.ofString("dropdown-trigger")};
+		var hxxMeta2 = { };
+		var attr2 = { className : tink_domspec_ClassName.ofString("button"), attributes : { "aria-haspopup" : "true", "aria-controls" : "dropdown-menu"}};
+		var __r1 = [];
+		var hxxMeta3 = { };
+		var s = tink_state_State.get_value(tink_state_Observable.get_value(this.__coco_data).__coco_version);
+		__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.SPAN,hxxMeta3.ref,hxxMeta3.key,{ },[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,s,null)]));
+		var hxxMeta3 = { };
+		var attr3 = { className : tink_domspec_ClassName.ofString("icon is-small")};
+		var hxxMeta4 = { };
+		var attr4 = { className : tink_domspec_ClassName.ofString("fas fa-angle-down"), attributes : { "aria-hidden" : "true"}};
+		var __r2 = [];
+		__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.SPAN,hxxMeta3.ref,hxxMeta3.key,attr3,[coconut_diffing_VNodeData.VNative(coconut_vdom_Html.I,hxxMeta4.ref,hxxMeta4.key,attr4,__r2)]));
+		__r.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta1.ref,hxxMeta1.key,attr1,[coconut_diffing_VNodeData.VNative(coconut_vdom_Html.BUTTON,hxxMeta2.ref,hxxMeta2.key,attr2,__r1)]));
+		var hxxMeta1 = { };
+		var attr1 = { className : tink_domspec_ClassName.ofString("dropdown-menu"), id : "dropdown-menu", role : "menu"};
+		var hxxMeta2 = { };
+		var attr2 = { className : tink_domspec_ClassName.ofString("dropdown-content")};
+		var __r1 = [];
+		var v = "haxe3";
+		var hxxMeta3 = { };
+		var attr3 = { href : "#", className : tink_domspec_ClassName.ofString("dropdown-item " + (tink_state_State.get_value(tink_state_Observable.get_value(this.__coco_data).__coco_version) == v ? "is-active" : "")), onclick : function(event) {
+			tink_state_Observable.get_value(_gthis.__coco_data).set_version(v);
+		}};
+		__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.A,hxxMeta3.ref,hxxMeta3.key,attr3,[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,v,null)]));
+		var v1 = "haxe4";
+		var hxxMeta3 = { };
+		var attr3 = { href : "#", className : tink_domspec_ClassName.ofString("dropdown-item " + (tink_state_State.get_value(tink_state_Observable.get_value(this.__coco_data).__coco_version) == v1 ? "is-active" : "")), onclick : function(event) {
+			tink_state_Observable.get_value(_gthis.__coco_data).set_version(v1);
+		}};
+		__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.A,hxxMeta3.ref,hxxMeta3.key,attr3,[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,v1,null)]));
+		var v2 = "haxe-nightly";
+		var hxxMeta3 = { };
+		var attr3 = { href : "#", className : tink_domspec_ClassName.ofString("dropdown-item " + (tink_state_State.get_value(tink_state_Observable.get_value(this.__coco_data).__coco_version) == v2 ? "is-active" : "")), onclick : function(event) {
+			tink_state_Observable.get_value(_gthis.__coco_data).set_version(v2);
+		}};
+		__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.A,hxxMeta3.ref,hxxMeta3.key,attr3,[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,v2,null)]));
+		__r.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta1.ref,hxxMeta1.key,attr1,[coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta2.ref,hxxMeta2.key,attr2,__r1)]));
+		return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta.ref,hxxMeta.key,attr,__r);
 	}
 	,__coco_data: null
 	,get_data: function() {
@@ -2495,6 +2526,93 @@ Main.prototype = $extend(coconut_vdom_View.prototype,{
 		this.__coco_data.setData(attributes.data);
 	}
 	,__class__: Main
+});
+var Dropdown = function(__coco_data_) {
+	this.__coco_options = new coconut_ui_tools_Slot(this,null,null);
+	this.__coco_value = new coconut_ui_tools_Slot(this,null,null);
+	var this1 = new tink_state__$State_SimpleState(false,null,null);
+	this.__coco_open = this1;
+	this.__initAttributes(__coco_data_);
+	var snapshot = null;
+	coconut_vdom_View.call(this,$bind(this,this.render),null,null,null,null);
+};
+Dropdown.__name__ = true;
+Dropdown.fromHxx = function(hxxMeta,attributes) {
+	return coconut_diffing_VNodeData.VWidget(Dropdown.__type,hxxMeta.ref,hxxMeta.key,attributes);
+};
+Dropdown.__super__ = coconut_vdom_View;
+Dropdown.prototype = $extend(coconut_vdom_View.prototype,{
+	render: function() {
+		var _gthis = this;
+		var hxxMeta = { };
+		var attr = { className : tink_domspec_ClassName.ofString("dropdown " + (tink_state_State.get_value(this.__coco_open) ? "is-active" : ""))};
+		var __r = [];
+		var hxxMeta1 = { };
+		var attr1 = { className : tink_domspec_ClassName.ofString("dropdown-trigger")};
+		var hxxMeta2 = { };
+		var attr2 = { className : tink_domspec_ClassName.ofString("button is-small"), onclick : function(event) {
+			_gthis.__coco_open.set(true);
+		}, attributes : { "aria-haspopup" : "true", "aria-controls" : "dropdown-menu"}};
+		var __r1 = [];
+		var hxxMeta3 = { };
+		var s = tink_state_Observable.get_value(this.__coco_value);
+		__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.SPAN,hxxMeta3.ref,hxxMeta3.key,{ },[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,s,null)]));
+		var hxxMeta3 = { };
+		var attr3 = { className : tink_domspec_ClassName.ofString("icon is-small")};
+		var hxxMeta4 = { };
+		var attr4 = { className : tink_domspec_ClassName.ofString("fas fa-angle-down"), attributes : { "aria-hidden" : "true"}};
+		var __r2 = [];
+		__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.SPAN,hxxMeta3.ref,hxxMeta3.key,attr3,[coconut_diffing_VNodeData.VNative(coconut_vdom_Html.I,hxxMeta4.ref,hxxMeta4.key,attr4,__r2)]));
+		__r.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta1.ref,hxxMeta1.key,attr1,[coconut_diffing_VNodeData.VNative(coconut_vdom_Html.BUTTON,hxxMeta2.ref,hxxMeta2.key,attr2,__r1)]));
+		var hxxMeta1 = { };
+		var attr1 = { className : tink_domspec_ClassName.ofString("dropdown-menu"), id : "dropdown-menu", role : "menu"};
+		var hxxMeta2 = { };
+		var attr2 = { className : tink_domspec_ClassName.ofString("dropdown-content")};
+		var __r1 = [];
+		var _g = new tink_pure_NodeIterator(tink_state_Observable.get_value(this.__coco_options));
+		while(_g.list.length > 0) {
+			var v = [_g.next()];
+			var hxxMeta3 = { };
+			var attr3 = { className : tink_domspec_ClassName.ofString("dropdown-item " + (tink_state_Observable.get_value(this.__coco_value) == v[0] ? "is-active" : "")), onclick : tink_core_Callback.fromNiladic((function(v) {
+				return function() {
+					_gthis.__coco_open.set(false);
+					return _gthis.set_value(v[0]);
+				};
+			})(v))};
+			__r1.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.A,hxxMeta3.ref,hxxMeta3.key,attr3,[coconut_diffing_VNodeData.VNative(coconut_vdom__$Html_Text.inst,null,null,v[0],null)]));
+		}
+		__r.push(coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta1.ref,hxxMeta1.key,attr1,[coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta2.ref,hxxMeta2.key,attr2,__r1)]));
+		return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DIV,hxxMeta.ref,hxxMeta.key,attr,__r);
+	}
+	,__coco_options: null
+	,get_options: function() {
+		return tink_state_Observable.get_value(this.__coco_options);
+	}
+	,__coco_value: null
+	,get_value: function() {
+		return tink_state_Observable.get_value(this.__coco_value);
+	}
+	,set_value: function(param) {
+		var _g = this.__coco_value.data;
+		if(_g != null) {
+			var v = _g;
+			v.set(param);
+		}
+		return param;
+	}
+	,__coco_open: null
+	,get_open: function() {
+		return tink_state_State.get_value(this.__coco_open);
+	}
+	,set_open: function(param) {
+		this.__coco_open.set(param);
+		return param;
+	}
+	,__initAttributes: function(attributes) {
+		this.__coco_options.setData(attributes.options);
+		this.__coco_value.setData(attributes.value);
+	}
+	,__class__: Dropdown
 });
 Math.__name__ = true;
 var Reflect = function() { };
@@ -2823,6 +2941,14 @@ coconut_data_Value.getValue = function(this1) {
 	return tink_state_Observable.get_value(this1);
 };
 coconut_data_Value.or = function(this1,fallback) {
+	if(this1 == null) {
+		return fallback;
+	} else {
+		return this1;
+	}
+};
+var coconut_data_Variable = {};
+coconut_data_Variable.or = function(this1,fallback) {
 	if(this1 == null) {
 		return fallback;
 	} else {
@@ -4153,6 +4279,9 @@ coconut_vdom_Html.link = function(hxxMeta,attr) {
 coconut_vdom_Html.li = function(hxxMeta,attr,children) {
 	return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.LI,hxxMeta.ref,hxxMeta.key,attr,children);
 };
+coconut_vdom_Html.legend = function(hxxMeta,attr,children) {
+	return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.LEGEND,hxxMeta.ref,hxxMeta.key,attr,children);
+};
 coconut_vdom_Html.label = function(hxxMeta,attr,children) {
 	return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.LABEL,hxxMeta.ref,hxxMeta.key,attr,children);
 };
@@ -4236,6 +4365,9 @@ coconut_vdom_Html.del = function(hxxMeta,attr,children) {
 };
 coconut_vdom_Html.dd = function(hxxMeta,attr,children) {
 	return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.DD,hxxMeta.ref,hxxMeta.key,attr,children);
+};
+coconut_vdom_Html.code = function(hxxMeta,attr,children) {
+	return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.CODE,hxxMeta.ref,hxxMeta.key,attr,children);
 };
 coconut_vdom_Html.circle = function(hxxMeta,attr,children) {
 	return coconut_diffing_VNodeData.VNative(coconut_vdom_Html.CIRCLE,hxxMeta.ref,hxxMeta.key,attr,children);
@@ -8800,6 +8932,10 @@ tink_domspec_ClassName.add = function(this1,that) {
 	}
 	return this2;
 };
+tink_domspec_ClassName.when = function(this1,cond) {
+	var this2 = cond ? this1 : "";
+	return this2;
+};
 tink_domspec_ClassName.ofMap = function(parts) {
 	var _g = [];
 	var c = haxe_ds_StringMap.keysIterator(parts.h);
@@ -8861,6 +8997,9 @@ tink_domspec_Macro.__name__ = true;
 var tink_domspec_CSSParser = function() { };
 tink_domspec_CSSParser.__name__ = true;
 tink_domspec_CSSParser.parseString = function(s) {
+	if(tink_domspec_CSSParser.style == null) {
+		tink_domspec_CSSParser.style = window.document.createElement("div").style;
+	}
 	tink_domspec_CSSParser.style.cssText = s;
 	var ret = { };
 	var ret1 = ret;
@@ -9132,33 +9271,33 @@ tink_http_Fetch.fetch = function(url,options) {
 							var this2;
 							if(code == 303) {
 								var __o0 = options;
-								var __tink_tmp18 = { method : "GET"};
+								var __tink_tmp39 = { method : "GET"};
 								var _g = __o0.headers;
 								if(_g != null) {
 									var v = _g;
-									__tink_tmp18.headers = v;
+									__tink_tmp39.headers = v;
 								}
 								var _g = __o0.followRedirect;
 								if(_g != null) {
 									var v = _g;
-									__tink_tmp18.followRedirect = v;
+									__tink_tmp39.followRedirect = v;
 								}
 								var _g = __o0.client;
 								if(_g != null) {
 									var v = _g;
-									__tink_tmp18.client = v;
+									__tink_tmp39.client = v;
 								}
 								var _g = __o0.body;
 								if(_g != null) {
 									var v = _g;
-									__tink_tmp18.body = v;
+									__tink_tmp39.body = v;
 								}
 								var _g = __o0.augment;
 								if(_g != null) {
 									var v = _g;
-									__tink_tmp18.augment = v;
+									__tink_tmp39.augment = v;
 								}
-								this2 = __tink_tmp18;
+								this2 = __tink_tmp39;
 							} else {
 								this2 = options;
 							}
@@ -16025,6 +16164,11 @@ Main.__type = { create : function(__coco_data_) {
 }, update : function(attr,v) {
 	v.__initAttributes(attr);
 }};
+Dropdown.__type = { create : function(__coco_data_) {
+	return new Dropdown(__coco_data_);
+}, update : function(attr,v) {
+	v.__initAttributes(attr);
+}};
 coconut_diffing_Differ.WIDGET_INST = { };
 coconut_diffing_Differ.EMPTY = { };
 coconut_vdom__$Html_Svg.SVG = "http://www.w3.org/2000/svg";
@@ -16068,6 +16212,7 @@ coconut_vdom_Html.MENU = coconut_vdom_Html.nodeType("menu");
 coconut_vdom_Html.MAIN = coconut_vdom_Html.nodeType("main");
 coconut_vdom_Html.LINK = coconut_vdom_Html.nodeType("link");
 coconut_vdom_Html.LI = coconut_vdom_Html.nodeType("li");
+coconut_vdom_Html.LEGEND = coconut_vdom_Html.nodeType("legend");
 coconut_vdom_Html.LABEL = coconut_vdom_Html.nodeType("label");
 coconut_vdom_Html.INS = coconut_vdom_Html.nodeType("ins");
 coconut_vdom_Html.INPUT = coconut_vdom_Html.nodeType("input");
@@ -16096,6 +16241,7 @@ coconut_vdom_Html.DIV = coconut_vdom_Html.nodeType("div");
 coconut_vdom_Html.DETAILS = coconut_vdom_Html.nodeType("details");
 coconut_vdom_Html.DEL = coconut_vdom_Html.nodeType("del");
 coconut_vdom_Html.DD = coconut_vdom_Html.nodeType("dd");
+coconut_vdom_Html.CODE = coconut_vdom_Html.nodeType("code");
 coconut_vdom_Html.CIRCLE = coconut_vdom_Html.nodeType("svg:circle");
 coconut_vdom_Html.CANVAS = coconut_vdom_Html.nodeType("canvas");
 coconut_vdom_Html.BUTTON = coconut_vdom_Html.nodeType("button");
@@ -16224,7 +16370,6 @@ tink_core_Promise.NEVER = (function($this) {
 	$r = ret.gather();
 	return $r;
 }(this));
-tink_domspec_CSSParser.style = window.document.createElement("div").style;
 tink_http_ChunkedParser.LINEBREAK = tink_chunk_Seekable.ofBytes(haxe_io_Bytes.ofString("\r\n"));
 tink_http_Fetch.client = new haxe_ds_EnumValueMap();
 tink_http_Fetch.sclient = new haxe_ds_EnumValueMap();
