@@ -1,0 +1,4 @@
+# @install: lix --silent download "haxelib:/list-enum-abstract#2.0.0" into list-enum-abstract/2.0.0/haxelib
+-lib tink_macro
+-cp ${HAXE_LIBCACHE}/list-enum-abstract/2.0.0/haxelib/src
+-D list-enum-abstract=2.0.0

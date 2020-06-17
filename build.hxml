@@ -1,0 +1,9 @@
+-cp src
+-main Main
+-js docs/index.js
+
+
+-lib coconut.vdom
+-lib cix
+-lib tink_web
+-lib list-enum-abstract
